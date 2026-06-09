@@ -23,3 +23,4 @@ opt.splitright = true
 opt.scrolloff = 8
 
 vim.opt.clipboard = "unnamedplus"
+vim.opt.guicursor = ""
