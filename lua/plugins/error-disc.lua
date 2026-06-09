@@ -14,10 +14,10 @@ return {
         virtual_lines = false,
         signs = {
           text = {
-            [diagnostic.severity.ERROR] = "🆇",
+            [diagnostic.severity.ERROR] = "❌",
             [diagnostic.severity.WARN] = "⚠️",
-            [diagnostic.severity.INFO] = "i️",
-            [diagnostic.severity.HINT] = "",
+            [diagnostic.severity.INFO] = "ℹ️",
+            [diagnostic.severity.HINT] = "💡",
           },
         },
         severity_sort = true,
