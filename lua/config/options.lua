@@ -29,3 +29,6 @@ vim.opt.guicursor = ""
 vim.opt.fillchars:append({
   eob = " ",
 })
+
+--for horizontal navigation
+vim.keymap.set("n", "<Tab>", "<C-w>w", { desc = "Next window" })
