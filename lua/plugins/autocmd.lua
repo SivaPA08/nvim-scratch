@@ -32,7 +32,10 @@ return {
 
         window = {
           completion = cmp.config.window.bordered(border_opts),
-          documentation = cmp.config.window.bordered(border_opts),
+          documentation = cmp.config.window.bordered(vim.tbl_extend("force", border_opts, {
+            max_width = 80,
+            max_height = 20,
+          })),
         },
 
         mapping = cmp.mapping.preset.insert({
@@ -94,11 +97,37 @@ return {
           }),
         },
 
-        -- Keep the selected item highlighted even without explicit selection
+        -- Always open documentation float immediately
         experimental = {
-          ghost_text = false,
+          ghost_text = true,
+        },
+
+        -- Force documentation to appear without delay
+        view = {
+          docs = {
+            auto_open = true,
+          },
         },
       })
+
+      -- Tell LSP servers to send back full detail / labelDetails in completions
+      -- (put this in your lspconfig setup too, but having it here ensures cmp requests it)
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      capabilities.textDocument.completion.completionItem = vim.tbl_deep_extend("force",
+        capabilities.textDocument.completion.completionItem or {}, {
+          documentationFormat   = { "markdown", "plaintext" },
+          snippetSupport        = true,
+          preselectSupport      = true,
+          insertReplaceSupport  = true,
+          labelDetailsSupport   = true,
+          deprecatedSupport     = true,
+          commitCharactersSupport = true,
+          tagSupport            = { valueSet = { 1 } },
+          resolveSupport        = {
+            properties = { "documentation", "detail", "additionalTextEdits" },
+          },
+        }
+      )
 
       -- Cmdline completion for "/"
       cmp.setup.cmdline("/", {
