@@ -32,3 +32,20 @@ vim.opt.fillchars:append({
 
 --for horizontal navigation
 vim.keymap.set("n", "<Tab>", "<C-w>w", { desc = "Next window" })
+
+
+--color for statusbar
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        vim.api.nvim_set_hl(0, "StatusLine", {
+            fg = "#ffffff",
+            bg = "#00001B",
+            bold = true,
+        })
+
+        vim.api.nvim_set_hl(0, "StatusLineNC", {
+            fg = "#a0a0a0",
+            bg = "#000066",
+        })
+    end,
+})
